@@ -1,5 +1,4 @@
 import telebot
-import conf
 from telebot import types
 import requests
 from pymorphy2 import MorphAnalyzer
@@ -8,14 +7,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import collections
 from pymystem3 import Mystem
-from nltk.corpus import stopwords
+import nltk
 from wordcloud import WordCloud
 
 
 TOKEN = "88f389cb88f389cb88f389cbcd88885196888f388f389cbeacc810cb5f620fe9c9f3080"
+TOKEN2 = "5193551492:AAHBFv_3bDxAnUH_b8daZTjlLPip4PiB4es"
 VERSION = "5.130"
 
-bot = telebot.TeleBot(conf.TOKEN)
+bot = telebot.TeleBot(TOKEN2)
 
 morph = MorphAnalyzer()
 stem_lemm = Mystem()
@@ -243,7 +243,7 @@ def callback_inline(call):
             lemmatized_text = "".join(stem_lemm.lemmatize(text_no_punct))
 
             # Убираем стопслова
-            stops = set(stopwords.words('russian') + ['это', 'весь', 'который', 'мочь', 'свой'])
+            stops = set(nltk.corpus.stopwords.words('russian') + ['это', 'весь', 'который', 'мочь', 'свой'])
             text_no_stopwords = []
             for word in lemmatized_text.split():
                 if word not in stops:
@@ -341,7 +341,7 @@ def callback_inline(call):
             lemmatized_text = "".join(stem_lemm.lemmatize(text_no_punct))
 
             # Убираем стопслова
-            stops = set(stopwords.words('russian') + ['это', 'весь', 'который', 'мочь', 'свой'])
+            stops = set(nltk.corpus.stopwords.words('russian') + ['это', 'весь', 'который', 'мочь', 'свой'])
             text_no_stopwords = []
             for word in lemmatized_text.split():
                 if word not in stops:
